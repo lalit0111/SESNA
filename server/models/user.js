@@ -47,27 +47,23 @@ const User = mongoose.model("User", {
     display_picture: {},
     cover_picture: {},
   },
-  // isAdmin: {
-  //   type: Boolean,
-  //   required: true,
-  // },
-  // isPublic: {
-  //   type: Boolean,
-  //   required: true,
-  // },
-  // friends: [
-  //   {
-  //     type: String,
-  //   },
-  // ],
-  // joined_community: [
-  //   {
-  //     role: { type: Number, required: true },
-  //     community_name: { type: String },
-  //     community_picture: {},
-  //     community_id: { type: String, requird: true },
-  //   },
-  // ],
+  isAdmin: {
+    type: Boolean,
+    required: true,
+  },
+  isPublic: {
+    type: Boolean,
+    required: true,
+  },
+  friends: [{ name: { type: String }, friendId: { type: String } }],
+  joined_community: [
+    {
+      role: { type: Number, required: true },
+      community_name: { type: String },
+      community_picture: {},
+      community_id: { type: String, requird: true },
+    },
+  ],
 });
 
 module.exports = User;

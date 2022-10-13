@@ -3,7 +3,7 @@ const User = require('../models/user')
 const router = new express.Router()
 
 
-router.post('', (req, res) => {
+router.post('/user', (req, res) => {
     const user = new User(req.body);
 
     user.save().then(()=>{
@@ -14,7 +14,7 @@ router.post('', (req, res) => {
         res.send(error);
     })
 })
-router.get('', async(req, res) => {
+router.get('/user', async(req, res) => {
     try {
         const user = await User.find({})
         res.send(user)
