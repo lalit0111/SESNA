@@ -1,36 +1,36 @@
 import React from "react";
+import comm from "../assets/communication.png";
+import dropDown from "../assets/drop-down.svg";
+
+function clickToExpand(e) {
+  console.log("clicked");
+  e.target.classList.toggle("active");
+  var content = e.target.previousElementSibling;
+  if (content.style.maxHeight) {
+    content.style.maxHeight = null;
+  } else {
+    content.style.maxHeight = content.scrollHeight + "px";
+  }
+}
 
 const ExpandableCard = () => {
   return (
-    <div class="profile" onclick="expand(this)">
-      <div
-        class="profile__banner"
-        style="background-color: rgb(153,255,204);"></div>
-      <div>
-        <div class="profile__pic">
-          <img
-            src="https://i.imgur.com/mQvmS3c.jpg?1"
-            alt="Profile picture of Cho Miyeon"></img>
-        </div>
-        <div class="profile__info">
-          <span class="profile__info-display">Cho Miyeon</span>
-          <span class="profile__info-username">@ramyeon</span>
-        </div>
+    <div className="expandable">
+      {/* <button type="button" class="collapsible" onClick={clickToExpand}>
+        Open Collapsible
+      </button> */}
+      <div className="top-section">
+        <img src={comm}></img>
+        <h1>Communication</h1>
       </div>
-      <div class="profile__data">
-        <span class="profile__data-following">
-          <span class="profile__data-following-number">32</span>
-          <span class="profile__data-following-label">Following</span>
-        </span>
-        <span class="profile__data-followers">
-          <span class="profile__data-followers-number">6M</span>
-          <span class="profile__data-following-label">Followers</span>
-        </span>
-        <span class="profile__data-likes">
-          <span class="profile__data-likes-number">502</span>
-          <span class="profile__data-likes-label">Likes</span>
-        </span>
+      <div className="content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing Pellentesque
+          posuere justo quis lectus porttitor. Curabitur mattis lorem eget
+          turpis volutpat cursus.
+        </p>
       </div>
+      <img src={dropDown} onClick={clickToExpand}></img>
     </div>
   );
 };

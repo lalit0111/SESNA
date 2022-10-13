@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import searchIcon from "../assets/search-icon.svg";
+import ExpandableCard from "../components/ExpandableCard";
 
 const Home = () => {
   return (
@@ -16,6 +17,11 @@ const Home = () => {
         <div className="search-button">
           <img src={searchIcon}></img>
         </div>
+      </div>
+      <div className="card-container">
+        <ExpandableCard />
+        <ExpandableCard />
+        <ExpandableCard />
       </div>
     </div>
   );
