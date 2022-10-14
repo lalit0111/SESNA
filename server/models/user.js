@@ -44,18 +44,18 @@ const User = mongoose.model("User", {
       type: String,
       required: true,
     },
-    display_picture: {},
-    cover_picture: {},
+  display_picture: {},
+  cover_picture: {},
   },
-  isAdmin: {
+  is_admin: {
     type: Boolean,
     required: true,
   },
-  isPublic: {
+  is_public: {
     type: Boolean,
     required: true,
   },
-  friends: [{ name: { type: String }, friendId: { type: String } }],
+  friends: [{ name: { type: String }, friend_id: { type: String } }],
   joined_community: [
     {
       role: { type: Number, required: true },

@@ -8,30 +8,30 @@ const Community = mongoose.model("Community", {
     user_count: { type: Number, required: true },
     description: { type: String, required: true },
   },
-  StudentChannel: [
-    { ChannelName: { type: String, required: true } },
-    { ChannelId: { type: String, required: true } },
-    { UnseenMessages: {type: Number}}
+  student_channel: [
+    { channel_name: { type: String, required: true } },
+    { channel_id: { type: String, required: true } },
+    { unseen_messages: {type: Number}}
   ],
-  Mentor: [
-    { ChannelName: { type: String, required: true } },
-    { ChannelId: { type: String, required: true } },
-    { UnseenMessages: {type: Number}}
+  mentor: [
+    { channel_name: { type: String, required: true } },
+    { channel_id: { type: String, required: true } },
+    { unseen_messages: {type: Number}}
   ],
-  Professional: [
-    { ChannelName: { type: String, required: true } },
-    { ChannelId: { type: String, required: true } },
-    { UnseenMessages: {type: Number}}
+  professional: [
+    { channel_name: { type: String, required: true } },
+    { channel_id: { type: String, required: true } },
+    { unseen_messages: {type: Number}}
   ],
-  Teacher: [
-    { ChannelName: { type: String, required: true } },
-    { ChannelId: { type: String, required: true } },
-    { UnseenMessages: {type: Number}}
+  teacher: [
+    { channel_name: { type: String, required: true } },
+    { channel_id: { type: String, required: true } },
+    { unseen_messages: {type: Number}}
   ],
-  Requests: [
-    { UserName: { type: String, required: true } },
-    { UserId: { type: String, required: true } },
-    { UserDP: {}}
+  requests: [
+    { user_name: { type: String, required: true } },
+    { user_id: { type: String, required: true } },
+    { user_dp: {}}
   ],
 });
 

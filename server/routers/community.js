@@ -5,7 +5,7 @@ const Community_brief = require('../models/community_brief')
 const router = new express.Router()
 
 
-router.post('/community', async(req, res) => {
+router.post('/create_community', async(req, res) => {
     const community = new Community(req.body)
     // console.log(community._id)
     const time = community._id.getTimestamp()
@@ -50,7 +50,7 @@ router.post('/community', async(req, res) => {
 })
 
 
-router.get('/community', async(req, res) => {
+router.get('/get_all_community', async(req, res) => {
     try {
         const community = await Community.find({})
         res.send(community)
