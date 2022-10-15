@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import searchIcon from "../assets/search-icon.svg";
 import ExpandableCard from "../components/ExpandableCard";
+import CommunityBrief from "../components/CommunityBrief";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -23,6 +25,18 @@ const Home = () => {
         <ExpandableCard />
         <ExpandableCard />
       </div>
+      <h1 className="more-communities-headline">More Communities</h1>
+      <div className="communities-container">
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+        <CommunityBrief />
+      </div>
+      <Footer />
     </div>
   );
 };

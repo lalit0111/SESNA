@@ -4,7 +4,8 @@ import dropDown from "../assets/drop-down.svg";
 
 function clickToExpand(e) {
   console.log("clicked");
-  e.target.classList.toggle("active");
+  // e.target.classList.toggle("active");
+  e.target.classList.toggle("rotate-down");
   var content = e.target.previousElementSibling;
   if (content.style.maxHeight) {
     content.style.maxHeight = null;
