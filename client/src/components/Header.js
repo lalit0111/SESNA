@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/logo.png";
 import dp from "../assets/dp.png";
 import logout from "../assets/logout.svg";
+import { Link } from "react-router-dom";
 
 const header = () => {
   return (
@@ -18,8 +19,12 @@ const header = () => {
           </div>
         </div>
         <div className="button-container">
-          <button className="login-btn">Login</button>
-          <button className="register-btn">Register</button>
+          <Link className="text-link" to={`login`}>
+            <button className="login-btn">Login</button>
+          </Link>
+          <Link className="text-link" to={`login`}>
+            <button className="register-btn">Register</button>
+          </Link>
         </div>
       </div>
     </div>
