@@ -3,6 +3,18 @@ const User = require('../models/user');
 const User_brief = require('../models/user_brief');
 const router = new express.Router()
 
+router.post('/signup',async(req,res)=>{
+    const user= new User(req.body)
+
+    try{
+        await user.save()
+        res.send(user)
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
 
 router.post('/login', (req, res) => {
     const user = new User(req.body);
@@ -18,6 +30,7 @@ router.post('/login', (req, res) => {
     //console.log(user);
     ///console.log("abc");
     let brief_user=req.body;
+    delete brief_user.tokens;
     delete brief_user.is_admin;
     delete brief_user.is_public;
     delete brief_user.personal_detail.dob;
