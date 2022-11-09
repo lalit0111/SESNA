@@ -47,8 +47,8 @@ const user_schema = new mongoose.Schema({
       type: String,
       required: true,
     },
-  display_picture: {},
-  cover_picture: {},
+  display_picture: {type : Buffer},
+  cover_picture: {type : Buffer},
   },
   is_admin: {
     type: Boolean,
@@ -57,15 +57,15 @@ const user_schema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  // friends: [{ name: { type: String }, friend_id: { type: String } }],
-  // joined_community: [
-  //   {
-  //     role: { type: Number, required: true },
-  //     community_name: { type: String },
-  //     community_picture: {},
-  //     community_id: { type: String, requird: true },
-  //   },
-  // ],
+  friends: [{ name: { type: String }, friend_id: { type: String } }],
+  joined_community: [
+    {
+      role: { type: Number},
+      community_name: { type: String },
+      community_picture: {},
+      community_id: { type: String},
+    },
+  ],
   tokens:[{
     token:{
       type:String,
@@ -80,6 +80,8 @@ user_schema.methods.toJSON = function () {
 
   delete userObject.password
   delete userObject.tokens
+  delete userObject.personal_detail.cover_picture
+  delete userObject.personal_detail.display_picture
 
   return userObject
 }

@@ -3,6 +3,8 @@ const User = require('../models/user');
 const User_brief = require('../models/user_brief');
 const auth = require('../middleware/auth')
 const router = new express.Router()
+const multer = require('multer')
+const sharp = require('sharp')
 
 router.post('/user/signup',async(req,res)=>{
     const user= new User(req.body)
@@ -43,8 +45,7 @@ router.post('/user/login', async(req, res) => {
         const token = await user.generate_authtoken()
         res.send({user , token})
     }catch(e){
-        res.status(400)
-        res.send(e)
+        res.status(400).send({error:e.message})
     }
 })
 
@@ -84,5 +85,78 @@ router.get('/users/me', auth , async(req,res)=>{
 //         res.status(500).send()
 //     }
 // })
+
+const upload = multer ({
+    limits :{
+        fileSize : 5000000
+    },
+    fileFilter(req, file , cb){
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+            return cb(new Error('please upload an image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+router.post('/users/me/cover_picture', auth, upload.single('cover_picture'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+    req.user.personal_detail.cover_picture = buffer
+    await req.user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+router.delete('/users/me/cover_picture', auth, async (req, res) => {
+    req.user.personal_detail.cover_picture = undefined
+    await req.user.save()
+    res.send()
+})
+
+router.post('/users/me/display_picture', auth, upload.single('display_picture'), async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+    req.user.personal_detail.display_picture = buffer
+    await req.user.save()
+    res.send()
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+router.delete('/users/me/display_picture', auth, async (req, res) => {
+    req.user.personal_detail.display_picture = undefined
+    await req.user.save()
+    res.send()
+})
+
+router.get('/users/:id/display_picture', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        if (!user || !user.personal_detail.display_picture) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/png')
+        res.send(user.personal_detail.display_picture)
+    } catch (e) {
+        res.status(404).send()
+    }
+})
+
+router.get('/users/:id/cover_picture', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+
+        if (!user || !user.personal_detail.cover_picture) {
+            throw new Error()
+        }
+
+        res.set('Content-Type', 'image/png')
+        res.send(user.personal_detail.cover_picture)
+    } catch (e) {
+        res.status(404).send()
+    }
+})
 
 module.exports = router
