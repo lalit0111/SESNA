@@ -1,16 +1,18 @@
-const express = require('express')
-const moment = require('moment')
-const Community = require('../models/community')
-const Community_brief = require('../models/community_brief')
+const express = require('express');
+const moment = require('moment');
+const Community = require('../models/community');
+const Community_brief = require('../models/community_brief');
+const multer = require('multer');
+const sharp = require('sharp');
 const router = new express.Router()
 
 
-router.post('/create_community', async(req, res) => {
+router.post('/create_community',async(req, res) => {
     const community = new Community(req.body)
-    // console.log(community._id)
+    
     const time = community._id.getTimestamp()
     const tt=moment(time).format('l')
-    
+
     community.save().then(()=>{
         res.send(community)
 
@@ -57,6 +59,46 @@ router.get('/get_all_community', async(req, res) => {
     } catch (e) {
         res.status(500).send()
     }
+})
+
+router.get('/community_by_id' , async(req,res)=>{
+    try{
+        const community = await Community.findById(req.body.id)
+        if(!community)
+        {
+            throw new Error()
+        }
+        res.send(community)
+    }
+    catch(e){
+        res.status(404).send(e)
+    }
+})
+
+
+const upload = multer ({
+    limits :{
+        fileSize : 5000000
+    },
+    fileFilter(req, file , cb){
+        if(!file.originalname.match(/\.(jpg|jpeg|png|JPG)$/)){
+            return cb(new Error('please upload an image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
+router.patch('/community/picture', upload.single('community_dp'), async (req, res) => {
+    console.log(req.body)
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
+    const community = await Community.findById(req.body.id)
+    community.community_brief.community_dp=buffer
+    await community.save()
+    res.send()
+   
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
 })
 
 module.exports = router

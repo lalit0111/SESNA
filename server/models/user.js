@@ -62,16 +62,12 @@ const user_schema = new mongoose.Schema({
     {
       role: { type: Number},
       community_name: { type: String },
-      community_picture: {},
       community_id: { type: String},
     },
   ],
-  tokens:[{
-    token:{
-      type:String,
-      required:true
-    }
-  }]
+  tokens:[
+    {token:{type:String,required:true}}
+  ]
 })
 
 user_schema.methods.toJSON = function () {
