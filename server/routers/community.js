@@ -90,12 +90,21 @@ const upload = multer ({
 })
 
 router.patch('/community/picture', upload.single('community_dp'), async (req, res) => {
-    console.log(req.body)
+    console.log(req)
     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
     const community = await Community.findById(req.body.id)
-    community.community_brief.community_dp=buffer
-    await community.save()
-    res.send()
+    if(!community)
+    {
+        return res.status(401).send({error : 'No community found'})
+    }
+    try{
+        community.community_brief.community_dp=buffer
+        await community.save()
+        res.send(req.body.id)
+    } catch(e){
+        res.status(400).send(e)
+    }
+    
    
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
