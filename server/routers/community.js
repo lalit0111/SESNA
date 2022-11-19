@@ -4,6 +4,8 @@ const Community = require('../models/community');
 const Community_brief = require('../models/community_brief');
 const multer = require('multer');
 const sharp = require('sharp');
+const auth = require('../middleware/auth')
+const User = require('../models/user')
 const router = new express.Router()
 
 
@@ -72,6 +74,95 @@ router.get('/community_by_id' , async(req,res)=>{
     }
     catch(e){
         res.status(404).send(e)
+    }
+})
+
+router.patch('/add_community_request' , auth , async(req,res)=>{
+    try{
+        
+        const community = await Community.findById(req.body.id)
+        if(!community)
+        {
+            return res.status(401).send({error : 'No community found'})
+        }
+        const dp = Buffer.from(req.user.personal_detail.display_picture)
+        //console.log(dp)
+
+        let user_detail = {}
+
+        user_detail['user_name']=req.user.personal_detail.name;
+        user_detail['user_id']=req.user._id.toHexString();
+        user_detail['user_dp']=dp;
+        community.requests.push(user_detail)
+        await community.save();
+        res.send(community);
+        
+    }catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+router.patch('/decline_request', async(req,res) =>{
+    try{
+        const community = await Community.findById(req.body.id)
+        if(!community)
+        {
+            return res.status(401).send({error : 'No community found'})
+        }
+        community.requests = community.requests.filter((user_id)=>{
+            return user_id.user_id!=req.body.user_id;
+        })
+        await community.save()
+        res.send(community.requests)
+        
+    }catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+router.patch('/accept_request' , async(req,res)=>{
+    try{
+        const community = await Community.findById(req.body.id)
+        if(!community)
+        {
+            return res.status(401).send({error : 'No community found'})
+        }
+        const user = await User.findById(req.body.user_id)
+        if(!user)
+        {
+            return res.status(401).send({error : 'No User found'})
+        }
+        let details = {}
+        let check = 0
+        community.requests.forEach((element)=>{
+            if(element.user_id === req.body.user_id)
+            {
+                details['user_name'] = element.user_name
+                details['user_id'] = element.user_id
+                details['role'] = "4"
+                details['user_dp']=Buffer.from(element.user_dp)
+                check = 1
+            }
+        })
+        if(check===0)
+        {
+            return res.status(401).send({error : 'No User found'})
+        }
+        community.requests = community.requests.filter((user_id)=>{
+            return user_id.user_id!=req.body.user_id;
+        })
+        community.community_brief.user_count = community.members.length 
+        community.members.push(details)
+        user.joined_community.push(details)
+        await user.save()
+        await community.save()
+        res.send(user)
+
+    }catch(e)
+    {
+        res.status(400).send(e)
     }
 })
 

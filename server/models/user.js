@@ -47,8 +47,8 @@ const user_schema = new mongoose.Schema({
       type: String,
       required: true,
     },
-  display_picture: {type : Buffer},
-  cover_picture: {type : Buffer},
+  display_picture : {type : Buffer},
+  cover_picture : {type : Buffer},
   },
   is_admin: {
     type: Boolean,
@@ -58,12 +58,12 @@ const user_schema = new mongoose.Schema({
     required: true,
   },
   friends: [{ name: { type: String }, friend_id: { type: String } }],
-  joined_community: [
-    {
-      role: { type: Number},
-      community_name: { type: String },
-      community_id: { type: String},
-    },
+  joined_community: [{
+      user_name : { type: String},
+      user_id : { type: String} ,
+      role : {type : String },
+      user_dp: {type : Buffer}
+    }
   ],
   tokens:[
     {token:{type:String,required:true}}
