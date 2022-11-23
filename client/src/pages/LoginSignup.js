@@ -1,12 +1,18 @@
-import { useRef, useEffect, React } from "react";
+import { useRef, useEffect, React, useContext } from "react";
+import { Link } from "react-router-dom";
 import fb from "../assets/fb-icon.svg";
 import googleIcon from "../assets/google.svg";
+import { LoginContext } from "../LoginContext";
 
 const LoginSignup = () => {
+  const { setisLoggedIn } = useContext(LoginContext);
   const handleSignupClick = (e) => {
     ref.current.classList.add("right-panel-active");
   };
 
+  const handleSigninClick = (e) => {
+    setisLoggedIn(true);
+  };
   const handleLoginClick = (e) => {
     ref.current.classList.remove("right-panel-active");
   };
@@ -29,6 +35,10 @@ const LoginSignup = () => {
             <span>or use your email for registration</span>
             <input type="text" placeholder="Name" />
             <input type="email" placeholder="Email" />
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
             <button>Sign Up</button>
           </form>
@@ -48,7 +58,9 @@ const LoginSignup = () => {
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
             <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <Link className="text-link" to="/">
+              <button onClick={handleSigninClick}>Sign In</button>
+            </Link>
           </form>
         </div>
         <div class="overlay-container">

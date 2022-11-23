@@ -44,9 +44,9 @@ body {
   background-color: $primary-light-color;
 
   img {
-    margin-left: 30px;
     width: 120px;
     height: 32px;
+    margin-left: 20px;
   }
 
   .right-container {
@@ -55,10 +55,11 @@ body {
     gap: 10px;
 
     .profile-container {
-      display: none;
+      display: flex;
       align-items: center;
 
-      gap: 10px;
+      justify-content: center;
+      margin-right: 10px;
       .name-container {
         display: flex;
         align-items: center;
@@ -76,6 +77,7 @@ body {
       img {
         width: 20px;
         height: 20px;
+        cursor: pointer;
       }
     }
 
@@ -130,35 +132,46 @@ body {
     text-align: center;
   }
 
-  .search-bar {
+  .search-wrapper {
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-
-    width: 40%;
     margin-top: 50px;
+    align-items: center;
+    justify-content: space-around;
 
-    .search-text {
-      border: 2px solid #e5e5e5;
-      height: 38px;
-      width: 100%;
-      padding-left: 30px;
-      border-top-left-radius: $button-radius;
-      border-bottom-left-radius: $button-radius;
+    img {
+      width: 40px;
+      height: 40px;
     }
-    .search-button {
+    .search-bar {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $primary-color;
-      border: 2px solid $primary-color;
-      height: 38px;
-      width: 50px;
-      border-top-right-radius: $button-radius;
-      border-bottom-right-radius: $button-radius;
+      justify-content: flex-end;
 
-      img {
-        width: 20px;
-        height: 20px;
+      width: 40%;
+
+      .search-text {
+        border: 2px solid #e5e5e5;
+        height: 38px;
+        width: 100%;
+        padding-left: 30px;
+        border-top-left-radius: $button-radius;
+        border-bottom-left-radius: $button-radius;
+      }
+      .search-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary-color;
+        border: 2px solid $primary-color;
+        height: 38px;
+        width: 50px;
+        border-top-right-radius: $button-radius;
+        border-bottom-right-radius: $button-radius;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
   }
@@ -342,18 +355,18 @@ body {
 }
 
 .login-signup-container {
-  background: #f6f5f7;
+  background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
+  margin: 20px 50px;
 
   h1 {
     font-weight: bold;
     margin: 0;
+    margin-top: 30px;
   }
 
   h2 {
@@ -365,7 +378,7 @@ body {
     font-weight: 100;
     line-height: 20px;
     letter-spacing: 0.5px;
-    margin: 20px 0 30px;
+    margin: 20px 30px;
   }
 
   span {
@@ -385,6 +398,7 @@ body {
     background-color: $primary-color;
     color: #ffffff;
     font-size: 12px;
+    margin-bottom: 20px;
     font-weight: bold;
     padding: 12px 45px;
     letter-spacing: 1px;
@@ -408,37 +422,52 @@ body {
   form {
     background-color: #ffffff;
     display: flex;
+    width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
-    padding: 0 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 100%;
     text-align: center;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  form::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
   }
 
   input {
+    display: flex;
     background-color: #eee;
     border: none;
     padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
+    margin: 8px 0px;
+    width: 70%;
   }
 
   .container {
+    display: flex;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
+    padding: 10px;
     overflow: hidden;
     width: 768px;
     max-width: 100%;
+    height: 100%;
     min-height: 480px;
   }
 
   .form-container {
     position: absolute;
-    top: 0;
+    display: flex;
     height: 100%;
+
+    // overflow: scroll;
+
     transition: all 0.6s ease-in-out;
   }
 
@@ -454,6 +483,7 @@ body {
 
   .sign-up-container {
     left: 0;
+    display: flex;
     width: 50%;
     opacity: 0;
     z-index: 1;
