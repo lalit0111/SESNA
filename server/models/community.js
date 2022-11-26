@@ -7,28 +7,36 @@ const community_schema = new mongoose.Schema({
   community_brief: {
     community_name: { type: String, required: true, unique : true },
     community_dp: {type : Buffer},
-    user_count: { type: Number },
+    user_count: { type: Number},
     description: { type: String, required: true },
   },
   student_channel: [
-    { channel_name: { type: String } },
-    { channel_id: { type: String } },
-    { unseen_messages: {type: Number}}
+    {
+      user_name : { type: String},
+      user_id : { type: String} ,
+      user_dp: {type : Buffer}
+    }
   ],
   mentor: [
-    { channel_name: { type: String } },
-    { channel_id: { type: String} },
-    { unseen_messages: {type: Number}}
+    {
+      user_name : { type: String},
+      user_id : { type: String} ,
+      user_dp: {type : Buffer}
+    }
   ],
   professional: [
-    { channel_name: { type: String} },
-    { channel_id: { type: String} },
-    { unseen_messages: {type: Number}}
+    {
+      user_name : { type: String},
+      user_id : { type: String} ,
+      user_dp: {type : Buffer}
+    }
   ],
   teacher: [
-    { channel_name: { type: String} },
-    { channel_id: { type: String } },
-    { unseen_messages: {type: Number}}
+    {
+      user_name : { type: String},
+      user_id : { type: String} ,
+      user_dp: {type : Buffer}
+    }
   ],
   requests: [{
         user_name : { type: String},

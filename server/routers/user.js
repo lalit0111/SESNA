@@ -77,6 +77,42 @@ router.get('/users/me', auth , async(req,res)=>{
     res.send(req.user)
 })
 
+router.patch('/make_admin', auth , async(req,res)=>{
+    try{
+        if(req.user.is_admin===true)
+        {
+            const user = await User.findById(req.body.id)
+            user.is_admin = true
+            await user.save()
+            res.status(200).send(user)
+        }
+        else
+        {
+            throw new Error("User doesn't have authority to make admin")
+        }
+    }catch(e){
+        res.status(400).send(e)
+    }
+})
+
+router.patch('/remove_admin', auth , async(req,res)=>{
+    try{
+        if(req.user.is_admin===true)
+        {
+            const user = await User.findById(req.body.id)
+            user.is_admin = false
+            await user.save()
+            res.status(200).send(user)
+        }
+        else
+        {
+            throw new Error("User doesn't have authority to make admin")
+        }
+    }catch(e){
+        res.status(400).send(e)
+    }
+})
+
 // router.get('/get_all_user', async(req, res) => {
 //     try {
 //         const user = await User.find({})
@@ -91,7 +127,7 @@ const upload = multer ({
         fileSize : 5000000
     },
     fileFilter(req, file , cb){
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+        if(!file.originalname.match(/\.(jpg|jpeg|png|JPG)$/)){
             return cb(new Error('please upload an image'))
         }
 
