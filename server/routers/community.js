@@ -54,14 +54,14 @@ router.post('/create_community',async(req, res) => {
 })
 
 
-router.get('/get_all_community', async(req, res) => {
-    try {
-        const community = await Community.find({})
-        res.send(community)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
+// router.get('/get_all_community', async(req, res) => {
+//     try {
+//         const community = await Community.find({})
+//         res.send(community)
+//     } catch (e) {
+//         res.status(500).send()
+//     }
+// })
 
 router.get('/community_by_id' , async(req,res)=>{
     try{
