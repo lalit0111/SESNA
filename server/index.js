@@ -1,5 +1,6 @@
 const express = require('express')
-require('./db/mongoose')
+const connectDB = require('./db/mongoose')
+const dotenv = require("dotenv")
 
 // models
 const User = require('./models/user')
@@ -17,7 +18,8 @@ const community_router = require('./routers/community')
 const message_router = require('./routers/messageRoute')
 const chat_router = require('./routers/chatRoute')
 
-
+dotenv.config();
+connectDB();
 
 
 
