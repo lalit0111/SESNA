@@ -39,7 +39,7 @@ export default function SearchBar({ onQueryChange }) {
   return (
     <SearchBarWrapper>
       <Input
-        placeholder="search chats..."
+        placeholder="Search Here"
         onChange={(e) => {
           onQueryChange(e.target.value);
         }}

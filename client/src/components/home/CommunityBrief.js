@@ -1,6 +1,6 @@
 import React from "react";
-import dp from "../assets/dp.png";
-import man from "../assets/man.svg";
+import dp from "../../assets/dp.png";
+import man from "../../assets/man.svg";
 
 const CommunityBrief = () => {
   return (

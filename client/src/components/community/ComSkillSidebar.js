@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import SearchBar from "./SearchBar";
+import SearchBar from "../chat/SearchBar";
 
 export default function ComSkillSidebar({ onReqClick }) {
   return (
@@ -15,7 +16,7 @@ export default function ComSkillSidebar({ onReqClick }) {
 const SideBarWrapper = styled.div`
   --corners: 4px;
   background-color: #f4f1eb;
-  padding: 12px 12px;
+  padding: 6px 8px;
   border-right: 1px solid #e2e2e2;
   color: white;
   display: flex;
@@ -33,7 +34,9 @@ const SideBarWrapper = styled.div`
 function TopBar({ onReqClick }) {
   return (
     <TopBarWrapper>
-      <BackIcon />
+      <Link className="text-link" to={`/`}>
+        <BackIcon />
+      </Link>
       <BtnWrapper>
         <RequestBtn onClick={onReqClick}>
           Requests

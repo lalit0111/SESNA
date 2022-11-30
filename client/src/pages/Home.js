@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import Header from "../components/Header";
 import searchIcon from "../assets/search-icon.svg";
-import ExpandableCard from "../components/ExpandableCard";
-import CommunityBrief from "../components/CommunityBrief";
+import ExpandableCard from "../components/home/ExpandableCard";
+import CommunityBrief from "../components/home/CommunityBrief";
 import Footer from "../components/Footer";
 import Hamburger from "../assets/ham.svg";
 import ChatIcon from "../assets/chat_active.svg";
 import { LoginContext } from "../LoginContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { isLoggedIn } = useContext(LoginContext);
+  const { isLoggedIn, loggedInUser } = useContext(LoginContext);
+  console.log(loggedInUser);
   return (
     <div className="home-container">
       <Header />
@@ -32,7 +34,11 @@ const Home = () => {
             <img src={searchIcon}></img>
           </div>
         </div>
-        {isLoggedIn && <img src={ChatIcon}></img>}
+        {isLoggedIn && (
+          <Link className="text-link" to={`chat`}>
+            <img src={ChatIcon}></img>
+          </Link>
+        )}
       </div>
 
       <div className="card-container">

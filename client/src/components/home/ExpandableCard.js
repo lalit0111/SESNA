@@ -1,6 +1,7 @@
 import React from "react";
-import comm from "../assets/communication.png";
-import dropDown from "../assets/drop-down.svg";
+import { Link } from "react-router-dom";
+import comm from "../../assets/communication.png";
+import dropDown from "../../assets/drop-down.svg";
 
 function clickToExpand(e) {
   console.log("clicked");
@@ -20,10 +21,12 @@ const ExpandableCard = () => {
       {/* <button type="button" class="collapsible" onClick={clickToExpand}>
         Open Collapsible
       </button> */}
-      <div className="top-section">
-        <img src={comm}></img>
-        <h1>Communication</h1>
-      </div>
+      <Link className="text-link" to={`/community`}>
+        <div className="top-section">
+          <img src={comm}></img>
+          <h1>Communication</h1>
+        </div>
+      </Link>
       <div className="content">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing Pellentesque

@@ -1,22 +1,88 @@
-import { useRef, useEffect, React, useContext } from "react";
+import { useRef, useEffect, React, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import fb from "../assets/fb-icon.svg";
 import googleIcon from "../assets/google.svg";
 import { LoginContext } from "../LoginContext";
+import DatePicker from "../components/DatePicker";
+import { UserSignupURL } from "../Api";
+import { UserLoginURL } from "../Api";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Loading from "../components/LoadingPrimary";
 
 const LoginSignup = () => {
-  const { setisLoggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
+  const { setisLoggedIn, setLoggedInUser } = useContext(LoginContext);
+
+  //states
+  const [isLoading, setIsLoading] = useState(false);
+  const [signinUser, setSignInUser] = useState({
+    personal_detail: {
+      name: "",
+      phone: "",
+      location: {
+        address: "",
+        city: "",
+        state: "",
+      },
+      dob: "",
+      email: "",
+      password: "",
+    },
+    is_public: "true",
+  });
+
+  const [loginUser, setLoginUser] = useState({ email: "", password: "" });
+
+  //handlers
   const handleSignupClick = (e) => {
     ref.current.classList.add("right-panel-active");
   };
 
-  const handleSigninClick = (e) => {
-    setisLoggedIn(true);
-  };
   const handleLoginClick = (e) => {
     ref.current.classList.remove("right-panel-active");
   };
 
+  const handleSigninClick = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log(loginUser);
+    UserLogin(loginUser);
+  };
+
+  const handleSignupButtonClick = (e) => {
+    setIsLoading(true);
+    e.preventDefault();
+    UserSignup(signinUser);
+  };
+
+  //API
+  const UserSignup = (user) => {
+    axios
+      .post(UserSignupURL, user)
+      .then((response) => {
+        console.log(response);
+        setisLoggedIn(true);
+        setIsLoading(false);
+        navigate("/");
+      })
+      .catch();
+  };
+
+  const UserLogin = (user) => {
+    axios
+      .post(UserLoginURL, user)
+      .then((response) => {
+        console.log(response);
+        setLoggedInUser(response.data);
+        setisLoggedIn(true);
+        setIsLoading(false);
+        navigate("/");
+      })
+      .catch();
+  };
+
+  //component
   const ref = useRef(null);
   return (
     <div className="login-signup-container">
@@ -33,14 +99,77 @@ const LoginSignup = () => {
               </a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => {
+                signinUser.personal_detail.name = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <input
+              type="number"
+              placeholder="Phone"
+              onChange={(e) => {
+                signinUser.personal_detail.phone = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              name="address"
+              onChange={(e) => {
+                signinUser.personal_detail.location.address = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="City"
+              name="city"
+              onChange={(e) => {
+                signinUser.personal_detail.location.city = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="State"
+              name="state"
+              onChange={(e) => {
+                signinUser.personal_detail.location.state = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <p>Date Of Birth</p>
+            <DatePicker
+              class="date-picker"
+              signinUser={signinUser}
+              setSignInUser={setSignInUser}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              onChange={(e) => {
+                signinUser.personal_detail.email = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              name="password"
+              onChange={(e) => {
+                signinUser.personal_detail.password = e.target.value;
+                setSignInUser(signinUser);
+              }}
+            />
+            {isLoading && <Loading />}
+            {isLoading || (
+              <button onClick={handleSignupButtonClick}>Sign Up</button>
+            )}
           </form>
         </div>
         <div class="form-container sign-in-container">
@@ -55,12 +184,29 @@ const LoginSignup = () => {
               </a>
             </div>
             <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input
+              name="loginEmail"
+              type="text"
+              placeholder="Email"
+              onChange={(e) => {
+                loginUser.email = e.target.value;
+                setLoginUser(loginUser);
+              }}
+            />
+            <input
+              name="loginPassword"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => {
+                loginUser.password = e.target.value;
+                setLoginUser(loginUser);
+              }}
+            />
             <a href="#">Forgot your password?</a>
-            <Link className="text-link" to="/">
-              <button onClick={handleSigninClick}>Sign In</button>
-            </Link>
+            {/* <Link className="text-link" to="/"> */}
+            {isLoading && <Loading />}
+            {isLoading || <button onClick={handleSigninClick}>Sign In</button>}
+            {/* </Link> */}
           </form>
         </div>
         <div class="overlay-container">

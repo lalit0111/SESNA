@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import SearchBar from "./SearchBar";
 
@@ -99,7 +100,9 @@ export default function ChatSideBar({ setChat }) {
   return (
     <ChatSideBarWrapper>
       <TopBar>
-        <BackIcon />
+        <Link className="text-link" to={`/`}>
+          <BackIcon />
+        </Link>
         <h3 style={mystyle}>Chats</h3>
       </TopBar>
       <SearchBar onQueryChange={setQuery} />
