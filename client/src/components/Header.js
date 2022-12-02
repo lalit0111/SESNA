@@ -38,10 +38,12 @@ const Header = () => {
       <div className="right-container">
         {isLoggedIn && (
           <div className="profile-container">
-            <div className="name-container">
-              <img src={dp}></img>
-              <p>lalit_818</p>
-            </div>
+            <Link className="text-link" to={`profile`}>
+              <div className="name-container">
+                <img src={dp}></img>
+                <p>lalit_818</p>
+              </div>
+            </Link>
             <div>
               {isLoading && <Loading />}
               {isLoading || (

@@ -7,3 +7,11 @@ export const propertySetter = (property, value, object) => {
   }
   propertyParent[propertyName] = value;
 };
+
+export const bufferToString = (buffer) => {
+  var binary = "";
+  var bytes = [].slice.call(new Uint8Array(buffer));
+  bytes.forEach((b) => (binary += String.fromCharCode(b)));
+  var str = window.btoa(binary);
+  return `data:image/jpeg;base64,${str}`;
+};

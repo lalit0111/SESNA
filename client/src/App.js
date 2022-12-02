@@ -6,6 +6,7 @@ import ChatSection from "./pages/ChatSection";
 import CommSkillsSection from "./pages/CommSkillsSection";
 import Wrapper from "./LoginContext";
 import CreateCommunity from "./pages/CreateCommunity";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/chat" element={<ChatSection />} />
         <Route path="/community" element={<CommSkillsSection />} />
         <Route path="/create-community" element={<CreateCommunity />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       {/* </Wrapper> */}
     </div>

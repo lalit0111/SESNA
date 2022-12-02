@@ -5,42 +5,24 @@ import SearchBar from "./SearchBar";
 
 const chatList = [
   {
-    name: "Madara Uchiha",
-    msg: "Do you want these Shadow clones to use susano as well?",
+    name: "Lalit Tilwani",
+    msg: "Hi I am lalit",
     unreadCount: 0,
     avatar: "https://media.tenor.com/1peqjULQN5EAAAAM/madara-uchiha-madara.gif",
     online: true,
     lastSeen: "10:00 pm",
   },
   {
-    name: "Sakura",
-    msg: "Kya matalb me trash hu?",
-    unreadCount: 1,
-    avatar:
-      "https://i.pinimg.com/474x/16/7c/17/167c17961b4ba8073f50dcac19866595.jpg",
-    online: true,
-    lastSeen: "6:00 am",
-  },
-  {
-    name: "Sasuke Uchiha",
-    msg: "narutoooo.....!",
-    unreadCount: 2,
-    avatar:
-      "https://i.pinimg.com/originals/b3/79/41/b3794117e784180c92ee777ce39b5f55.jpg",
-    online: false,
-    lastSeen: "1:00 pm",
-  },
-  {
-    name: "Naruto",
-    msg: "Dattebao",
+    name: "Apurv Verma",
+    msg: "Hi I am Apurv",
     unreadCount: 0,
     avatar: "https://i.ytimg.com/vi/GeJamu2gafI/maxresdefault.jpg",
     online: false,
     lastSeen: "12:00 pm",
   },
   {
-    name: "Lalit Dattebao",
-    msg: "Hissssshhhhh",
+    name: "Utkarsh Nanda",
+    msg: "Hi I am Utkarsh",
     unreadCount: 0,
     avatar:
       "https://www.macmillandictionary.com/external/slideshow/full/emoji_snake_full.jpg",

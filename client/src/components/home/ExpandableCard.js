@@ -15,7 +15,9 @@ function clickToExpand(e) {
   }
 }
 
-const ExpandableCard = () => {
+const ExpandableCard = (props) => {
+  console.log(props);
+  const { community_name, description } = props.community;
   return (
     <div className="expandable">
       {/* <button type="button" class="collapsible" onClick={clickToExpand}>
@@ -24,15 +26,11 @@ const ExpandableCard = () => {
       <Link className="text-link" to={`/community`}>
         <div className="top-section">
           <img src={comm}></img>
-          <h1>Communication</h1>
+          <h1>{community_name}</h1>
         </div>
       </Link>
       <div className="content">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing Pellentesque
-          posuere justo quis lectus porttitor. Curabitur mattis lorem eget
-          turpis volutpat cursus.
-        </p>
+        <p>{description}</p>
       </div>
       <img src={dropDown} onClick={clickToExpand}></img>
     </div>

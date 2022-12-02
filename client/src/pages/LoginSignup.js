@@ -30,6 +30,7 @@ const LoginSignup = () => {
       password: "",
     },
     is_public: "true",
+    is_admin: "false",
   });
 
   const [loginUser, setLoginUser] = useState({ email: "", password: "" });
@@ -61,6 +62,7 @@ const LoginSignup = () => {
     axios
       .post(UserSignupURL, user)
       .then((response) => {
+        setLoggedInUser(response.data);
         console.log(response);
         setisLoggedIn(true);
         setIsLoading(false);
